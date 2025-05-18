@@ -1,0 +1,146 @@
+# Engine
+
+## Requisitos
+
+### Camara
+
+La camara debe estar conectada con el mouse y coordenadas de la posición y del vector de dirección
+
+El ángulo de vision no importa por ahora, puede ser fijo 
+
+```python
+class Camara{
+	atributos -> x, y, vectorDireccion
+	
+	x -> float
+	y -> float
+	vectorDireccion -> (i, j, k)
+```
+
+Implementation de `glutLookAt`
+
+```python
+gluLookAt(0, 0, 10,     # Cámara en (0, 0, 10)
+          0, 0, 0,      # Mira al origen (0, 0, 0)
+          0, 1, 0)      # El eje Y es "arriba"
+```
+
+El vector arriba determina cual es el “arriba” de la camara
+
+```python
+def motion(x, y):
+	#Aqui va toda la logica de movimiento de la camara. Se ejecuta cuando se detecta un click con el mouse
+
+	glutPostRedisplay() #Llama nuevamente a display
+```
+
+```python
+def mouse(button, x, y):
+	
+	#Logica de movimiento
+```
+
+### Motor
+
+Esta clase administrara la inicialización y la llamada a todos los métodos necesarios. Sera la clase principal del motor 
+
+Es necesario inicializar el motor
+
+```python
+glutInit()
+glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
+glutInitWindowSize(800, 600)
+glutCreateWindow("Plano cartesiano 3D con cuadrícula XY".encode("utf-8"))
+
+glEnable(GL_DEPTH_TEST)
+glClearColor(0.1, 0.1, 0.1, 1.0)
+
+glutDisplayFunc(display)
+glutReshapeFunc(reshape)
+glutMouseFunc(mouse)
+glutMotionFunc(motion)
+glutIdleFunc(idle)
+
+glutMainLoop()
+```
+
+Se requieren varias funciones para poder hacer funcionar el programa.
+
+- DisplayFunc - Es la función que dibuja el contenido de la ventana
+- ReshapeFunc  - Es la función que administra la proyección de la camara y el redimensionamiento
+
+Methods
+
+- Init. Se inicializa el motor
+- Add. Se agrega un objeto a la escena. Accede a `scene` indirectamente
+- Render Scene. Ejecuta `display_scene`
+- SaveAnimation. Es un método para guardar la animación en formato de video. (Pendiente por investigar)
+
+### Escena
+
+Esta clase sera la responsable de crear la escena actual. Aquí se agregaran todos los objetos que se deseen dibujar y animar. 
+
+Sera la clase que contenga la función `DisplayFunc` y `ReshapeFunc`
+
+```python
+def display():
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+  glLoadIdentity()
+
+  # Cámara alejada
+  glTranslatef(0, 0, zoom_distance)
+  glRotatef(angle_y, 1, 0, 0)  # Rotación vertical (eje Y → arriba/abajo)
+  glRotatef(angle_z, 0, 0, 1)  # Rotación horizontal (eje Z → izquierda/derecha)
+
+	glutSwapBuffers()
+```
+
+```python
+def reshape(w, h):
+    glViewport(0, 0, w, h)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(60, w / h, 1.0, 100.0)
+    glMatrixMode(GL_MODELVIEW)
+```
+
+```python
+def idle():
+	#Aqui va toda la logica de animacion de la escena. Normalmente se modifican las variables de los objetos
+
+	glutPostRedisplay() #Llama nuevamente a display
+```
+
+En OpenGL la camara no es un objeto propio, lo que se modifica es la toda la escena para cambiar la proyección. 
+
+Las transformaciones de la camara  se deberían administrar desde esta clase
+
+### Objeto2D
+
+Esta clase es la plantilla para crear nuevos objetos 2d, por ejemplo círculos, líneas, puntos, etc. 
+
+Únicamente servirá como una clase madre para que todos los objetos compartan una interfaz en común 
+
+Cada objeto tendrá su método de dibujo para dibujar tareas
+
+Clases hijas (Se modificara luego)
+
+- `Circulo`
+- `Linea`
+- `Punto`
+- `Función`
+
+### Objeto3D
+
+Esta clase es la plantilla para crear nuevos objetos 3d, por ejemplo esferas, mallas, planos, superficies. 
+
+Únicamente servirá como una clase madre para que todos los objetos compartan una interfaz en común 
+
+Cada objeto tendrá su método de dibujo para dibujar tareas
+
+Clases hijas (Se modificara luego)
+
+- `Esfera`
+- `Plano`
+- `Función`
+- `Cara`
