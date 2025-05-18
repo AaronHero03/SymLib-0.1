@@ -5,12 +5,12 @@ import motor.Scene as sc
 
 class SimLink:
       
-      def __init__(self):
+      def __init__(self, title, width=800, height=600, fps=60):
             self.scene = sc.Scene()
-            self.width = 800
-            self.height = 600
-            self.fps = 60
-            self.title = "Plano cartesiano 3D con cuadrícula XY".encode("utf-8")
+            self.width = width
+            self.height = height
+            self.fps = fps
+            self.title = title.encode("utf-8")
             
       def init(self):
             glutInit()
