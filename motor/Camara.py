@@ -5,7 +5,7 @@ import math
 class Camara:
       def __init__(self, position=[0, 0.1, 10], direction=[0, 0, 0], up=[0,  0, 1]):
             self.radius = math.dist(position, direction)
-            self.theta = math.atan2(position[1] - direction[1], position[0] - direction[0])  # Horizontal angle
+            self.theta = math.atan2(position[1] - direction[1], position[0] - direction[0]) + math.pi # Horizontal angle
             self.phi = math.acos((position[2] - direction[2]) / self.radius)                # Vertical angle
 
             self.direction = direction
@@ -38,7 +38,6 @@ class Camara:
             elif button == 4 and state == GLUT_DOWN:
                   self.radius += 1
                   
-
       def motion(self, x, y):
             if self.mouse_down:
                   dx = x - self.last_x
