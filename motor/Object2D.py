@@ -8,6 +8,26 @@ class Object2D:
       def  draw(self):
             pass
       
+      def rotate(self, angle):
+            # Implementar la rotación del polígono
+            pass
+      
+      def translate(self, dx, dy):
+            # Implementar la traslación del polígono
+            pass
+      
+      def scale(self, sx, sy):
+            # Implementar el escalado del polígono
+            pass
+      
+      def set_color(self, color):
+            # Implementar el cambio de color del polígono
+            pass
+      
+      def set_position(self, x, y):
+            # Implementar el cambio de posición del polígono
+            pass
+      
 class Circle(Object2D):
       def __init__(self, color, x, y, radius, segments = 1000, fill = False, z0 = 0):
             super().__init__(color)
@@ -154,3 +174,28 @@ class RegularPolygon(Object2D):
             glEnd()
             glEnable(GL_DEPTH_TEST)
             
+class Function(Object2D):
+      def __init__(self, color, function, x_min, x_max, width = 1, step = 0.1):
+            super().__init__(color)
+            self.color = color
+            self.function = function
+            self.x_min = x_min
+            self.x_max = x_max
+            self.step = step
+            self.width = width
+      
+      def draw(self):
+            glColor3f(self.color[0], self.color[1], self.color[2])    
+            glDisable(GL_DEPTH_TEST)
+            glLineWidth(self.width)
+            glBegin(GL_LINE_STRIP)
+
+            x = self.x_min
+            while x <= self.x_max:
+                  y = self.function(x)
+                  glVertex3f(x, y, 0)
+                  x += self.step
+            
+            glEnd()
+            glEnable(GL_DEPTH_TEST)
+      

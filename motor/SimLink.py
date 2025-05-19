@@ -3,6 +3,7 @@ from OpenGL.GLUT import *
 import motor.Scene as sc
 import motor.Camara as cm
 import motor.Object2D as obj
+import math
 
 class SimLink:
       
