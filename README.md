@@ -18,7 +18,6 @@ class Camara {
 }
 Implementación usando gluLookAt:
 
-python
 gluLookAt(0, 0, 10,     # Cámara en (0, 0, 10)
           0, 0, 0,      # Mira al origen (0, 0, 0)
           0, 1, 0)      # El eje Y es "arriba"
@@ -26,7 +25,6 @@ El vector arriba determina cuál es el “arriba” de la cámara.
 
 Funciones básicas para manejar la cámara con el mouse:
 
-python
 def motion(x, y):
     # Lógica de movimiento de la cámara al detectar click con mouse
     glutPostRedisplay()  # Refresca la pantalla
@@ -75,7 +73,7 @@ Aquí se agregan y animan los objetos.
 Contiene las funciones DisplayFunc y ReshapeFunc.
 
 Ejemplo de funciones:
-python
+
 def display():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
