@@ -4,6 +4,8 @@ import motor.Scene as sc
 import motor.Camara as cm
 import motor.Object2D as obj
 import math
+import motor.Object3D as obj3d
+import motor.Animation as anim
 
 class SimLink:
       
@@ -29,6 +31,7 @@ class SimLink:
             glutReshapeFunc(self.scene.reshape)
             glutMouseFunc(self.scene.mouse)
             glutMotionFunc(self.scene.motion)
+            glutIdleFunc(self.scene.idle)
 
             glutMainLoop()
       

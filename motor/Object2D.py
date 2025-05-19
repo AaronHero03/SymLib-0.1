@@ -175,7 +175,7 @@ class RegularPolygon(Object2D):
             glEnable(GL_DEPTH_TEST)
             
 class Function(Object2D):
-      def __init__(self, color, function, x_min, x_max, width = 1, step = 0.1):
+      def __init__(self, color, function, x_min, x_max, width = 1, step = 0.1, z0 = 0):
             super().__init__(color)
             self.color = color
             self.function = function
@@ -183,6 +183,7 @@ class Function(Object2D):
             self.x_max = x_max
             self.step = step
             self.width = width
+            self.z0 = z0
       
       def draw(self):
             glColor3f(self.color[0], self.color[1], self.color[2])    
@@ -193,7 +194,7 @@ class Function(Object2D):
             x = self.x_min
             while x <= self.x_max:
                   y = self.function(x)
-                  glVertex3f(x, y, 0)
+                  glVertex3f(x, y, self.z0)
                   x += self.step
             
             glEnd()

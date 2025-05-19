@@ -7,23 +7,29 @@ def main():
     
     motor  = SimLink(title = "Plano cartesiano", cam=camara, sce=scene)
     motor.init()
-
-    circle = obj.Circle(color=[1, 0, 0], x=-3, y=0, radius = 1, fill=True) 
-
-    rectangle = obj.Rectangle(color=[0, 1, 0], x=0, y=0, width=2, height=2, fill=True)
-    line = obj.Line(color=[1, 1, 1], x1=-2, y1=1.5, x2=2, y2=1.5)
-    triangle = obj.Triangle(color=[0, 0, 1], vertex=[[2, -1], [4, -1],[3, 1]], fill=True)
-    hexagon = obj.RegularPolygon(color=[0, 1, 1], x=0, y=-3, apothem=1, sides=6, fill=True)
     
-    f = lambda x: math.sin(x) 
-    function = obj.Function(color=[1, 1, 1], function=f, x_min=-5, x_max=5, width=1.5, step=0.1) 
+    # Ejemplo
     
-    scene.add(circle)
-    scene.add(rectangle)
-    scene.add(line)
-    scene.add(triangle)
-    scene.add(hexagon)
-    scene.add(function)
+    q = -1.602e-19; 
+    m = 9.1e-31;    
+    B = 0.1;        
+    v0 = 1e6;       
+    
+    w = q * B / m;
+    xi = 0;
+    xf = 5 * math.pi/abs(w)
+    
+    fc = lambda t: (v0/w * math.sin(w*t), (v0/w * (1 - math.cos(w*t))))
+    f = lambda x, y: x**2 + y**2 
+    
+    obj = obj3d.FunctionMesh((0, 0, 1), f, (-2, 2), (-2, 2), resolution=20, wire=True)
+    
+    sphere = obj3d.Sphere((0, 1, 0), 0.1, [0, 0, 0], wire=False)
+    animation = anim.Animation(sphere, fc, xi, xf, 0, 1, scale=1e4, infinite=False)
+    
+    scene.add(sphere)
+    scene.add_animation(animation)
+    scene.add(obj)
     
     motor.render()
     

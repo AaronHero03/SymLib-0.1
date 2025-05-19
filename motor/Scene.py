@@ -8,6 +8,7 @@ class Scene:
       def __init__(self, camara):
             self.camara = camara
             self.objects = []
+            self.animations = []
       
       #Main Functions
 
@@ -39,8 +40,10 @@ class Scene:
       def motion(self, x, y):
             self.camara.motion(x, y)
       
-      def idle():
-            pass
+      def idle(self):
+            for anim in self.animations:
+                  anim.update()
+            glutPostRedisplay()
       
       #Aux Functions
       
@@ -70,11 +73,11 @@ class Scene:
             glColor3f(0.5, 0.5, 0.5)
             glLineWidth(1.0)
             glBegin(GL_LINES)
-            for i in range(-size, size + 1, step):
-                  glVertex3f(-size, i, 0)
-                  glVertex3f(size, i, 0)
-                  glVertex3f(i, -size, 0)
-                  glVertex3f(i, size, 0)
+            for i in range(-int(size/step), int(size/step) + 1):
+                  glVertex3f(-size, i * step, 0)
+                  glVertex3f(size, i * step, 0)
+                  glVertex3f(i * step, -size, 0)
+                  glVertex3f(i * step, size, 0)
             glEnd()
 
       #Add functions
@@ -82,4 +85,6 @@ class Scene:
       def add(self, object):
             self.objects.append(object)
       
+      def add_animation(self, animation):
+            self.animations.append(animation)
       
