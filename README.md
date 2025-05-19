@@ -19,8 +19,6 @@ class Camara {
 Implementación usando gluLookAt:
 
 python
-Copiar
-Editar
 gluLookAt(0, 0, 10,     # Cámara en (0, 0, 10)
           0, 0, 0,      # Mira al origen (0, 0, 0)
           0, 1, 0)      # El eje Y es "arriba"
@@ -29,8 +27,6 @@ El vector arriba determina cuál es el “arriba” de la cámara.
 Funciones básicas para manejar la cámara con el mouse:
 
 python
-Copiar
-Editar
 def motion(x, y):
     # Lógica de movimiento de la cámara al detectar click con mouse
     glutPostRedisplay()  # Refresca la pantalla
@@ -42,8 +38,6 @@ Clase principal que administra la inicialización y ejecución del motor.
 
 Inicialización:
 python
-Copiar
-Editar
 glutInit()
 glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
 glutInitWindowSize(800, 600)
@@ -82,8 +76,6 @@ Contiene las funciones DisplayFunc y ReshapeFunc.
 
 Ejemplo de funciones:
 python
-Copiar
-Editar
 def display():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
@@ -149,9 +141,3 @@ Crea la escena y añade objetos.
 Controla la cámara con el mouse.
 
 Ejecuta el loop principal para renderizar y animar.
-
-css
-Copiar
-Editar
-
-Si quieres, también puedo ayudarte a crear un archivo `.gitignore` o un ejemplo mínimo para empezar el motor. ¿Quieres?
