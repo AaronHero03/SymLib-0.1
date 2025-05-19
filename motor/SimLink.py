@@ -2,11 +2,13 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 import motor.Scene as sc
+import motor.Camara as cm
 
 class SimLink:
       
-      def __init__(self, title, width=800, height=600, fps=60):
-            self.scene = sc.Scene()
+      def __init__(self, title, width=800, height=800, fps=60):
+            self.camara = cm.Camara(position=[0, 0.1, 20], direction=[0, 0, 1])
+            self.scene = sc.Scene(self.camara)
             self.width = width
             self.height = height
             self.fps = fps
@@ -23,6 +25,8 @@ class SimLink:
 
             glutDisplayFunc(self.scene.display)
             glutReshapeFunc(self.scene.reshape)
+            glutMouseFunc(self.scene.mouse)
+            glutMotionFunc(self.scene.motion)
 
             glutMainLoop()
       
