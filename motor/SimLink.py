@@ -3,9 +3,9 @@ from OpenGL.GLUT import *
 import motor.Scene as sc
 import motor.Camara as cm
 import motor.Object2D as obj
-import math
 import motor.Object3D as obj3d
 import motor.Animation as anim
+import motor.Physics as phy
 
 class SimLink:
       

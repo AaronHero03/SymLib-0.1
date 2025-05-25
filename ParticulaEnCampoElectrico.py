@@ -27,9 +27,7 @@ def main():
             F = q * np.cross(v, B)
             a = F / m
             
-            v = v + a * dt
-            r = r + v * dt
-            sphere.moveTo(r)
+            
             
       motor.render()
       
