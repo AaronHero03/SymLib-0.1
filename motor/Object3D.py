@@ -28,6 +28,8 @@ class Sphere(Object3D):
                   
             glPopMatrix()
             
+      def moveTo(self, position):
+            self.position = position       
              
 class Cube(Object3D):
       def __init__(self, color, size, position, wire=False):

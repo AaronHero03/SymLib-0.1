@@ -32,7 +32,6 @@ class SimLink:
             glutMouseFunc(self.scene.mouse)
             glutMotionFunc(self.scene.motion)
             glutIdleFunc(self.scene.idle)
-
             glutMainLoop()
       
       

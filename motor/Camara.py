@@ -56,3 +56,9 @@ class Camara:
                   self.last_y = y
 
                   glutPostRedisplay()
+
+      def move(self, key, x, y):
+            
+            step = 0.2
+            
+            forward = []
