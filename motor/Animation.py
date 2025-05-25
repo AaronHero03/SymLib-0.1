@@ -37,11 +37,11 @@ class Move(Animation):
             elapsed_time = time.time() - self.start_time
             progress = elapsed_time / self.duration
             
-            index = int(progress * (self.totalFrames-1))
-            posicion_acutal = self.posiciones[index]
+            index = index = min(int(progress * self.totalFrames), self.totalFrames - 1)
+            posicion_actual = self.posiciones[index]
             
-            self.object3d.position[0] = posicion_acutal[0]
-            self.object3d.position[1] = posicion_acutal[1]
+            self.object3d.position[0] = posicion_actual[0]
+            self.object3d.position[1] = posicion_actual[1]
             
             
             

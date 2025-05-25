@@ -200,3 +200,25 @@ class Function(Object2D):
             glEnd()
             glEnable(GL_DEPTH_TEST)
       
+class ParametricFunction(Object2D):
+    def __init__(self, color, fx, fy, t_min, t_max, step=0.01, z0=0):
+        super().__init__(color)
+        self.fx = fx
+        self.fy = fy
+        self.t_min = t_min
+        self.t_max = t_max
+        self.step = step
+        self.z0 = z0
+
+    def draw(self):
+        glColor3f(*self.color)
+        glDisable(GL_DEPTH_TEST)
+        glBegin(GL_LINE_STRIP)
+        t = self.t_min
+        while t <= self.t_max:
+            x = self.fx(t)
+            y = self.fy(t)
+            glVertex3f(x, y, self.z0)
+            t += self.step
+        glEnd()
+        glEnable(GL_DEPTH_TEST)
