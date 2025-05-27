@@ -24,6 +24,10 @@ class Scene:
             for obj in self.objects:
                   obj.draw()
 
+            for anim in self.animations:
+                  if hasattr(anim, "draw"):
+                        anim.draw()
+
             glutSwapBuffers()
       
       def reshape(self, w, h):
@@ -70,17 +74,21 @@ class Scene:
      
       def draw_grid(self, size=10, step=1):
             glDisable(GL_LIGHTING)
+
+            # Plano XY: más visible
             glColor3f(0.5, 0.5, 0.5)
             glLineWidth(1.0)
             glBegin(GL_LINES)
-            for i in range(-int(size/step), int(size/step) + 1):
-                  glVertex3f(-size, i * step, 0)
-                  glVertex3f(size, i * step, 0)
-                  glVertex3f(i * step, -size, 0)
-                  glVertex3f(i * step, size, 0)
-            glEnd()
+            for i in range(-size, size + 1, step):
+                  # Línea horizontal en Y
+                  glVertex3f(-size, i, 0)
+                  glVertex3f(size, i, 0)
 
-      #Add functions
+                  # Línea vertical en X
+                  glVertex3f(i, -size, 0)
+                  glVertex3f(i, size, 0)
+            glEnd()
+            #Add functions
       
       def add(self, object):
             self.objects.append(object)

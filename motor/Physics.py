@@ -1,4 +1,4 @@
-import math
+import numpy as np
 
 def euler(f1, xi, xf, yi, h):
       
@@ -56,30 +56,31 @@ def euler2(f, xi, xf, f1i, f2i, h):
       return resultados
 
 def runge_kutta2(f, xi, xf, r0, v0, h):
-    r = r0
-    v = v0
-    x = xi
-    i = 0
-    resultados = [(i, x, r, v)]
+      r = np.array(r0, dtype=float)
+      v = np.array(v0, dtype=float)
+      t = xi
+      i = 0
+      resultados = [(i, t, r, v)]
 
-    while x < xf:
-        k1v = f(x, v)
-        k1r = v
+      while t < xf:
+            k1v = f(t, r, v)
+            k1r = v
 
-        k2v = f(x + h/2, v + h/2 * k1v)
-        k2r = v + h/2 * k1v
+            k2v = f(t + h/2, r + h/2 * k1r, v + h/2 * k1v)
+            k2r = v + h/2 * k1v
 
-        k3v = f(x + h/2, v + h/2 * k2v)
-        k3r = v + h/2 * k2v
+            k3v = f(t + h/2, r + h/2 * k2r, v + h/2 * k2v)
+            k3r = v + h/2 * k2v
 
-        k4v = f(x + h, v + h * k3v)
-        k4r = v + h * k3v
+            k4v = f(t + h, r + h * k3r, v + h * k3v)
+            k4r = v + h * k3v
 
-        v = v + (h / 6.0) * (k1v + 2*k2v + 2*k3v + k4v)
-        r = r + (h / 6.0) * (k1r + 2*k2r + 2*k3r + k4r)
+            v = v + (h / 6.0) * (k1v + 2*k2v + 2*k3v + k4v)
+            r = r + (h / 6.0) * (k1r + 2*k2r + 2*k3r + k4r)
 
-        x = x + h
-        i += 1
-        resultados.append((i, x, r, v))
 
-    return resultados
+            t = t + h
+            i += 1
+            resultados.append((i, t, r, v))
+
+      return resultados
